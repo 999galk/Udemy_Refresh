@@ -1,0 +1,188 @@
+Tracert - our way of knowing through which IP addresses we went through to get an asset. (router, ISP, internet servers to the requested server)
+
+Performance improvement:
+1. Location of the servers we're interacting with
+2. Number of trips to get files from external servers (CDN)
+3. Size of files
+
+internet = network of connected computers (PCs, servers ,,,)
+www = common language / protocol that computers can speak
+
+Jquery - Library that allowed JS to be more readable and easy to use, and unified between different browsers
+Apache server - software that efficiently serves files
+
+Library vs framework -
+Both allows you to use a code writted by others.
+Library allows you to use functions (Ikea example - you already have a home, you need furniture and you don't want to create your own)
+Framework - skeleton of the house, limited architecture that defines where and how you can add your own input
+When you use a library, you are in charge of the flow of the application. You are choosing when and where to call the library.
+When you use a framework, the framework is in charge of the flow, and provides some places for you to plug in your code.
+
+HTML -
+Self closing tags examples: <br> <hr> <img ...> <input...>
+index.html - known by servers to be the page to serve by default
+
+GET vs POST - GET adds query string to the URL with the request data
+action = which script to run on GET / POST
+
+<span> vs <div> - span is inline element while div is a block
+
+HTML5 - introduced Semantic elements like <section> , <header>, <footer>, <nav.. and additional attributes.
+Created to help crawlers that navigate the website and to align different browsers into the same structure
+
+CSS -
+Font sizes -
+px is constant.
+em is x out of the containing element. so 5em will be *5 of the size of its containing element.
+rem is x out of the root element (<html>)
+
+Minify CSS - remove white spaces so the file gets smaller (bytes wise)
+
+CSS3 - introduced new features such as transition/transform and animations.
+* Not all are supported on all browsers. some will required a prefix in CSS to do something dedicated to an unsupported browser
+
+Bootstrap -
+Grid - 12 columns
+xs/s/md/.. -> addressing the size of the window. col-xs-6 = If the window is xs take up 6 slots of the 12
+
+Animate.css , creative-tim for full templates
+
+Flexbox vs CSS grid -
+flexbox is probably better for a 1 dimensional grid
+When using a grid - we can define how we want our rows to look (1fr 2fr will get the second row double the size of the first one)
+
+CSS grid -
+auto as a fr size will give the original content size
+most common pattern to get the grid actually responsive is: grid-template-columns : repeat (auto-fill, minmax(200px, 1fr))
+video to get grid all-items together responsive - CSS grid 3
+video to get an item inside the grid different than the others - CSS grid 4+5
+Grid cheat sheet: https://grid.malven.co/
+
+
+JS
+method is a function inside an object.
+
+DOM - object that browser creates to allow us to modify the HTML and CSS, using JS
+JS engine - v8 chrome - allows the browser to read and execute JS, line by line. used to talk to the DOM
+window - the big parent object a webpage. highest in the hierarchy. father object of the DOM , but also contains multiple other methods.
+
+document.querySelector("something") - will get the first element it finds
+document.querySelectorAll("something") - will get all the "something" elements
+
+Best way of adding a class to an element using JS :
+document.querySelector("element").className = "";
+document.querySelector("element").classList.add(""); -> classList also has .remove and .toggle(on/off);
+
+callback function = we only call it on event, we won't have a () after its name so it won't run until its called
+
+jquery - imparative , meaning actions depending on each other too much
+
+Advanced JS
+Scope - by default you're in the root scope which is the window object.
+Children always have a access to the parent's scope. Parents don't have access to the children scope
+
+ES6 -
+BABEL - using that you can translate JS versions of ES6 and forward to a "regular" pre-ES6 version of JS so it works on all browsers
+New features:
+* Var type let -> using let - every curly brackets create a scope (while with var a new scope if only within a function).
+  Defining a let inside "if" statement creates a scope
+* Var type const -> doesn't allowed to change it value inside the program.
+  note: if you set a const object - you can reassign properties of the object but not the object itself
+* destructuring - const { param1 , param2 } = object will create 2 variables (param1, param2) with the values of the same properties from the object
+* dynamic object keys (key like [name] that was declared as a variable outside)
+* Objects with the same key,value can se written const obj={a,b,c} (instead of a:a,b:b..)
+* template strings - using `` we no longer need to backslash "" and '' and usage of variables inside a string is with ${var_name}
+* function default arguments function greet(name='',age=30..) -> means if I don't call the function with specific values , use the default ones
+* arrow functions - const func = () => expression; -> for a single return no need to write return or use {} , for more actions we'll add {} and return.
+* Using const with a function - a const function creates a scope for us,
+  then using const variables within that function makes sure the variable will be "recreated" every-time the function runs, its value wont be ran over / create conflicts
+* Curried functions -  const function = (a) => (b) => a*b; the returned value of a is assigned to the b function
+* Compose function - const (f,g) => (a) => f(g(a));
+* for (item of array/string) -> x can only be iterable type - array or string
+* for (item in object) -> item will return the key (!), allows enumerating over an object, its not called iterating cause its an object.
+
+
+BEST PRACTICE FOR PURE FUNCTIONS:
+1. Deterministic --> always produces the same results given the same inputs, always returns a value!
+2. No Side Effects -->  It does not depend on any state, or data, change during a program’s execution. It must only depend on its input elements.
+* Avoid side effects -> minimal edit of external scope variables
+
+Arrays
+* Map - creates a new array with edited values of another array const newArray = array.map((item) => item * 2;)
+  iterates like forEach only it has to return value.
+* Filter - creates a new array with filtered values from another array const newAraay = array.filter((item) => item>5;)
+* reduce - keeps a counter of the last iteration results in the accumulator
+const reduceArray = array.reduce((acc, item) => {
+  return acc + item;
+}, 0)
+The accumulator (acc) starts at 0 - defined at the end of the function.
+The item is from the array
+acc will first be 0, then 0+item (=item), then item+secondItem...
+
+result will be the sum of all the array values.
+
+Objects:
+Reference type -> when you assign a data structure to a variable - only a reference to that structure will be assigned.
+object2 = object1 means object 2 will have a reference to object 1
+primitive type of variable is passed by value , meaning is I do let a=5; let b=a; b will get the value 5, not a reference to a. if I do b++ b will be 6 while a stays 5
+
+Context -> "this" represents the object we're in
+
+Shalow Clone object
+* Option 1 - using Object.assign - let clonedObj = Object.assign({}, objToClone) => means clone objToClone into an empty object and assign it to clonedObj
+* Short way - using let clonedObj = {...obj} - does the same as the above
+This is called shallow cause its cloning the first level of object.
+If the object contains another object - we need a deep clone to make sure the internal object is not passed by reference.
+We do it using Json parse stringify - but noticed if the object is massive it will have performance implications
+
+Type coercion -
+When comparing 2 different var types, the JS engine will do type coercion on one of them
+Using == will do the coercion , but === will not. this is why we use ===
+
+
+ES7:
+New features:
+* array / string .includes()
+* square using ** - const num = (x) => x**2
+
+ES8:
+* padStart , padEnd
+* end list of function arguments that ends with ',' without anything after it - const func = (a,b,c,) =>
+* Object.keys - allows to run on an object same as on an array -> Object.keys(obj).forEach((key=> console.log(key , obj[key];))) -> key will return the key, obj[key] will return the value
+* Object.values(obj) - will return and array of all the object's values (without keys)
+* Object.entries(obj) - will return each property as its own array of ['key', 'value'] - will create an array of arrays
+
+ES10:
+* Array.flat(NUMBER_OF_LAYERS) - will return an array were internal nested arrays on the level mentions are presented as values
+  We can also use flat to get rid of empty cells in an array
+* array.flatMap -> flats the array and then map into a new array with edited value
+* trimStart , trimEnd
+* const obj = fromEntries(array) -> will create an object from the array's values.
+* try{}catch{} - tries something , catch the error
+
+ES2020:
+* Bigint - numbers over a certain huge number (Number.MAX_SAFE_INTEGER) will need to be operated with n after the number (9007199254740991n+1n)
+* optional chaining operator - instead of checking if object exists using if (obj && obj.property && obj.property.value) - we can do obj?.property?.value
+* nullish operator - when we do || between statements it checks for true/false, now we have ?? that checks for null/undefined
+'' || false -> false
+'' ?? false -> ''
+
+Loops -
+Very useful to use debugger; inside a loop!
+
+WHAT IS JS? -> important(!!!) go over video number 173,174 (!!!)
+single-threded language => means we only have 1 call stack, only 1 statement executed at a time BUT its also non-blocking
+to not block the single thread stack it is asynchronous with callback function that run on the background
+JS runtime environment - part of the browser - there are a couple more stacks in the browser:
+- web API (setTimeout , AJAX)
+- callback queue
+- event loop - checks the status of the stack
+
+JS engine (v8 for chrome) has memory heap and stack.
+* memory leak will happen if we have global variable that are not used.
+* stack overflow will happen if we have too many actions in the stack
+
+Modules -
+Solved the problem of too many JS files.
+you can exports function, then import in another
+webpack - module bundler - aggregates JS files into single files 
